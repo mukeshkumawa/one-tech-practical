@@ -92,11 +92,13 @@ export async function getAllUsers(data) {
         { email: { $regex: data.search, $options: "i" } },
       ];
     }
+    let sortObj = {}
+    if (data.orderto && data.orderby) {
+      sortObj[data.orderto] = parseInt(data.orderby)
+    }
     let userAggregate = UserDB.aggregate([
       {
-        $sort: {
-          createdAt: -1,
-        },
+        $sort: sortObj
       },
       {
         $match: matchObj,

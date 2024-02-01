@@ -215,7 +215,7 @@ export async function allUsers(req, res) {
     req.query.orderto = "_id";
   }
   if ([null, undefined, 0, ""].includes(req.query.orderby)) {
-
+    req.query.orderby = -1;
   }
   try {
     let result = await UserService.getAllUsers(req.query);
